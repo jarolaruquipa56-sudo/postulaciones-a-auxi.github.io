@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USB - Sede La Paz | Sistema de Postulaciones</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef1f5;
+    color: #263238;
+}
+
+/* =========================
+   ESTRUCTURA PRINCIPAL
+========================= */
+
+.app {
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+#loginScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        linear-gradient(135deg, #f5f7fa, #dfe5eb);
+}
+
+.login-card {
+    width: 390px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.18);
+    overflow: hidden;
+}
+
+.login-header {
+    background: #ffffff;
+    padding: 22px;
+    text-align: center;
+    border-bottom: 5px solid #0874b9;
+}
+
+.university-logo {
+    width: 85px;
+    height: 85px;
+    margin: auto;
+    border-radius: 50%;
+    border: 4px solid #d0a928;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    color: #0874b9;
+    background: #fafafa;
+}
+
+.university-name {
+    margin-top: 12px;
+    color: #075b91;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.login-title {
+    font-size: 14px;
+    margin-top: 4px;
+    color: #555;
+}
+
+.login-body {
+    padding: 25px;
+}
+
+.login-body label {
+    display: block;
+    margin: 13px 0 6px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.login-body input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd2d8;
+    border-radius: 5px;
+    outline: none;
+}
+
+.login-body input:focus {
+    border-color: #0874b9;
+}
+
+.role-title {
+    margin-top: 18px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.roles {
+    display: flex;
+    gap: 7px;
+    margin-top: 8px;
+}
+
+.role {
+    flex: 1;
+    border: 1px solid #d2d8dd;
+    padding: 12px 5px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    background: #fafafa;
+}
+
+.role:hover,
+.role.selected {
+    background: #e5f3fb;
+    border-color: #0874b9;
+    color: #075b91;
+}
+
+.role-icon {
+    display: block;
+    font-size: 23px;
+    margin-bottom: 5px;
+}
+
+.btn-login {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px;
+    border: none;
+    border-radius: 5px;
+    background: #d6ae24;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-login:hover {
+    background: #bd9717;
+}
+
+.demo-info {
+    text-align: center;
+    margin-top: 12px;
+    color: #777;
+    font-size: 11px;
+}
+
+/* =========================
+   SISTEMA
+========================= */
+
+#systemScreen {
+    min-height: 100vh;
+}
+
+.topbar {
+    height: 65px;
+    background: white;
+    border-bottom: 4px solid #0874b9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid #d6ae24;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0874b9;
+    font-weight: bold;
+}
+
+.brand strong {
+    color: #075b91;
+}
+
+.brand small {
+    display: block;
+    color: #777;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-name {
+    font-size: 13px;
+}
+
+.logout {
+    border: none;
+    background: #e74c3c;
+    color: white;
+    padding: 9px 13px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 65px);
+}
+
+.sidebar {
+    width: 235px;
+    background: #073f63;
+    color: white;
+    padding-top: 20px;
+}
+
+.menu-title {
+    padding: 12px 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #a9c9db;
+}
+
+.menu-item {
+    padding: 14px 20px;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+    font-size: 14px;
+}
+
+.menu-item:hover,
+.menu-item.active {
+    background: #07527e;
+    border-left-color: #d6ae24;
+}
+
+.main {
+    flex: 1;
+    padding: 25px;
+    overflow-x: hidden;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.page-title {
+    color: #075b91;
+    margin-bottom: 5px;
+}
+
+.page-subtitle {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 22px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    border-left: 5px solid #0874b9;
+}
+
+.stat-card.gold {
+    border-left-color: #d6ae24;
+}
+
+.stat-card.green {
+    border-left-color: #27ae60;
+}
+
+.stat-card.red {
+    border-left-color: #e74c3c;
+}
+
+.stat-number {
+    font-size: 27px;
+    font-weight: bold;
+    color: #075b91;
+}
+
+.stat-label {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #777;
+}
+
+.section {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    margin-bottom: 20px;
+}
+
+.section-title {
+    color: #075b91;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+/* =========================
+   CONVOCATORIAS
+========================= */
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-box input,
+.search-box select {
+    padding: 11px;
+    border: 1px solid #ccd2d8;
+    border-radius: 5px;
+}
+
+.search-box input {
+    flex: 1;
+}
+
+.btn {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-blue {
+    background: #0874b9;
+    color: white;
+}
+
+.btn-gold {
+    background: #d6ae24;
+    color: white;
+}
+
+.btn-gray {
+    background: #68747c;
+    color: white;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.call-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: .2s;
+}
+
+.call-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 18px rgba(0,0,0,.12);
+}
+
+.call-header {
+    background: #0874b9;
+    color: white;
+    padding: 14px;
+}
+
+.call-header h3 {
+    font-size: 15px;
+}
+
+.call-body {
+    padding: 15px;
+}
+
+.call-body p {
+    font-size: 12px;
+    margin: 8px 0;
+    color: #666;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 8px;
+    border-radius: 15px;
+    font-size: 10px;
+    font-weight: bold;
+    background: #e7f7ed;
+    color: #1d8b4b;
+}
+
+.call-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+/* =========================
+   DETALLE
+========================= */
+
+.detail-box {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.detail-header {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+}
+
+.detail-header h2 {
+    color: #075b91;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.info {
+    background: #f5f7f9;
+    padding: 14px;
+    border-radius: 5px;
+}
+
+.info strong {
+    display: block;
+    color: #075b91;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.info span {
+    font-size: 13px;
+}
+
+.requirements {
+    margin-top: 20px;
+}
+
+.requirements li {
+    margin: 8px 0 8px 20px;
+    font-size: 13px;
+}
+
+.apply-area {
+    margin-top: 25px;
+    padding: 20px;
+    background: #edf8fd;
+    border-radius: 7px;
+    border: 1px solid #b9deef;
+}
+
+/* =========================
+   SEGUIMIENTO
+========================= */
+
+.timeline {
+    position: relative;
+    margin: 30px 10px;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 0 0 28px 45px;
+    border-left: 3px solid #d0d7dc;
+}
+
+.timeline-item:last-child {
+    border-left-color: transparent;
+}
+
+.circle {
+    position: absolute;
+    left: -12px;
+    top: 0;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background: #d0d7dc;
+    border: 3px solid white;
+    box-shadow: 0 0 0 1px #ccc;
+}
+
+.timeline-item.completed {
+    border-left-color: #27ae60;
+}
+
+.timeline-item.completed .circle {
+    background: #27ae60;
+}
+
+.timeline-item.current .circle {
+    background: #d6ae24;
+}
+
+.timeline-item h4 {
+    color: #075b91;
+    margin-bottom: 5px;
+}
+
+.timeline-item p {
+    font-size: 12px;
+    color: #777;
+}
+
+/* =========================
+   TABLA
+========================= */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #075b91;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-size: 12px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;
+}
+
+tr:hover td {
+    background: #f5f8fa;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 900px) {
+    .sidebar {
+        width: 190px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 650px) {
+    .sidebar {
+        display: none;
+    }
+
+    .topbar {
+        padding: 0 12px;
+    }
+
+    .user-name {
+        display: none;
+    }
+
+    .main {
+        padding: 15px;
+    }
+
+    .stats,
+    .cards,
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div id="loginScreen">
+
+    <div class="login-card">
+
+        <div class="login-header">
+
+            <div class="university-logo">
+                <img src ="logosale.png" />
+            </div>
+
+            <div class="university-name">
+                UNIVERSIDAD SALESIANA
+            </div>
+
+            <div class="login-title">
+                SEDE LA PAZ
+            </div>
+
+            <div class="login-title">
+                SISTEMA DE POSTULACIONES
+            </div>
+
+        </div>
+
+        <div class="login-body">
+
+            <label>Estudiante ID</label>
+            <input id="studentId" type="text" placeholder="Ingrese su ID">
+
+            <label>Password</label>
+            <input id="password" type="password" placeholder="Ingrese su contraseña">
+
+            <div class="role-title">
+                SELECCIONE SU ROL
+            </div>
+
+            <div class="roles">
+
+                <div class="role selected" onclick="selectRole(this)">
+                    <span class="role-icon">🎓</span>
+                    Estudiante
+                </div>
+
+                <div class="role" onclick="selectRole(this)">
+                    <span class="role-icon">👤</span>
+                    Docente
+                </div>
+
+                <div class="role" onclick="selectRole(this)">
+                    <span class="role-icon">⚙️</span>
+                    Admin
+                </div>
+
+            </div>
+
+            <button class="btn-login" onclick="login()">
+                INICIAR SESIÓN
+            </button>
+
+            <div class="demo-info">
+                Demo: puedes ingresar cualquier usuario y contraseña.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     SISTEMA
+========================= -->
+
+<div id="systemScreen" class="hidden">
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                S
+            </div>
+
+            <div>
+                <strong>UNIVERSIDAD SALESIANA</strong>
+                <small>Sede La Paz</small>
+            </div>
+
+        </div>
+
+        <div class="user-area">
+
+            <span class="user-name">
+                👤 Usuario: <strong id="loggedUser">Estudiante</strong>
+            </span>
+
+            <button class="logout" onclick="logout()">
+                Salir
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div class="layout">
+
+        <!-- MENU -->
+
+        <aside class="sidebar">
+
+            <div class="menu-title">
+                Menú principal
+            </div>
+
+            <div class="menu-item active"
+                 onclick="showPage('dashboard', this)">
+                🏠 inicio
+            </div>
+
+            <div class="menu-item"
+                 onclick="showPage('convocatorias', this)">
+                📋 Convocatorias
+            </div>
+
+            <div class="menu-item"
+                 onclick="showPage('seguimiento', this)">
+                📊 Mis postulaciones
+            </div>
+
+            <div class="menu-title">
+                Cuenta
+            </div>
+
+            <div class="menu-item"
+                 onclick="showProfile()">
+                👤 Mi perfil
+            </div>
+
+        </aside>
+
+
+        <!-- CONTENIDO -->
+
+        <main class="main">
+
+            <!-- ================= INICIO ================= -->
+
+            <section id="inicio" class="page">
+
+                <h1 class="page-title">
+                    inicio principal
+                </h1>
+
+                <p class="page-subtitle">
+                    Bienvenido al Sistema de Postulaciones de la Universidad Salesiana.
+                </p>
+
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <div class="stat-number">20</div>
+                        <div class="stat-label">
+                            Convocatorias activas
+                        </div>
+                    </div>
+
+                    <div class="stat-card gold">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">
+                            Mis postulaciones
+                        </div>
+                    </div>
+
+                    <div class="stat-card green">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">
+                            En proceso
+                        </div>
+                    </div>
+
+                    <div class="stat-card red">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">
+                            Finalizadas
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="section">
+
+                    <h2 class="section-title">
+                        Convocatorias recientes
+                    </h2>
+
+                    <div class="cards">
+
+                        <div class="call-card">
+
+                            <div class="call-header">
+                                <h3>Auxiliar de Redes</h3>
+                            </div>
+
+                            <div class="call-body">
+
+                                <span class="badge">
+                                    ABIERTA
+                                </span>
+
+                                <p>
+                                    Área: Sistemas
+                                </p>
+
+                                <p>
+                                    Fecha límite: 15/10/2026
+                                </p>
+
+                                <button class="btn btn-blue"
+                                        onclick="showDetail(1)">
+                                    Ver convocatoria
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="call-card">
+
+                            <div class="call-header">
+                                <h3>Auxiliar de Programación</h3>
+                            </div>
+
+                            <div class="call-body">
+
+                                <span class="badge">
+                                    ABIERTA
+                                </span>
+
+                                <p>
+                                    Área: Informática
+                                </p>
+
+                                <p>
+                                    Fecha límite: 20/10/2026
+                                </p>
+
+                                <button class="btn btn-blue"
+                                        onclick="showDetail(2)">
+                                    Ver convocatoria
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="call-card">
+
+                            <div class="call-header">
+                                <h3>Auxiliar de Laboratorio</h3>
+                            </div>
+
+                            <div class="call-body">
+
+                                <span class="badge">
+                                    ABIERTA
+                                </span>
+
+                                <p>
+                                    Área: Ciencias
+                                </p>
+
+                                <p>
+                                    Fecha límite: 25/10/2026
+                                </p>
+
+                                <button class="btn btn-blue"
+                                        onclick="showDetail(3)">
+                                    Ver convocatoria
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= CONVOCATORIAS ================= -->
+
+            <section id="convocatorias" class="page hidden">
+
+                <h1 class="page-title">
+                    Lista de convocatorias
+                </h1>
+
+                <p class="page-subtitle">
+                    Consulta las oportunidades disponibles para postular.
+                </p>
+
+
+                <div class="section">
+
+                    <div class="search-box">
+
+                        <input
+                            id="searchInput"
+                            type="text"
+                            placeholder="Buscar convocatoria..."
+                            onkeyup="filterCalls()">
+
+                        <select id="areaFilter"
+                                onchange="filterCalls()">
+
+                            <option value="">
+                                Todas las áreas
+                            </option>
+
+                            <option value="Sistemas">
+                                Sistemas
+                            </option>
+
+                            <option value="Informática">
+                                Informática
+                            </option>
+
+                            <option value="Ciencias">
+                                Ciencias
+                            </option>
+
+                        </select>
+
+                        <button class="btn btn-blue"
+                                onclick="filterCalls()">
+                            Buscar
+                        </button>
+
+                    </div>
+
+
+                    <div id="callList" class="cards">
+
+                        <div class="call-card"
+                             data-name="Auxiliar de Redes"
+                             data-area="Sistemas">
+
+                            <div class="call-header">
+                                <h3>Auxiliar de Redes</h3>
+                            </div>
+
+                            <div class="call-body">
+
+                                <span class="badge">
+                                    ABIERTA
+                                </span>
+
+                                <p>
+                                    Área: Sistemas
+                                </p>
+
+                                <p>
+                                    Vacantes: 2
+                                </p>
+
+                                <p>
+                                    Fecha límite: 15/10/2026
+                                </p>
+
+                                <div class="call-actions">
+
+                                    <button class="btn btn-blue"
+                                            onclick="showDetail(1)">
+                                        Detalle
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="call-card"
+                             data-name="Auxiliar de Programación"
+                             data-area="Informática">
+
+                            <div class="call-header">
+                                <h3>Auxiliar de Programación</h3>
+                            </div>
+
+                            <div class="call-body">
+
+                                <span class="badge">
+                                    ABIERTA
+                                </span>
+
+                                <p>
+                                    Área: Informática
+                                </p>
+
+                                <p>
+                                    Vacantes: 3
+                                </p>
+
+                                <p>
+                                    Fecha límite: 20/10/2026
+                                </p>
+
+                                <div class="call-actions">
+
+                                    <button class="btn btn-blue"
+                                            onclick="showDetail(2)">
+                                        Detalle
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="call-card"
+                             data-name="Auxiliar de Laboratorio"
+                             data-area="Ciencias">
+
+                            <div class="call-header">
+                                <h3>Auxiliar de Laboratorio</h3>
+                            </div>
+
+                            <div class="call-body">
+
+                                <span class="badge">
+                                    ABIERTA
+                                </span>
+
+                                <p>
+                                    Área: Ciencias
+                                </p>
+
+                                <p>
+                                    Vacantes: 1
+                                </p>
+
+                                <p>
+                                    Fecha límite: 25/10/2026
+                                </p>
+
+                                <div class="call-actions">
+
+                                    <button class="btn btn-blue"
+                                            onclick="showDetail(3)">
+                                        Detalle
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= DETALLE ================= -->
+
+            <section id="detalle" class="page hidden">
+
+                <div class="detail-box">
+
+                    <div class="detail-header">
+
+                        <button class="btn btn-gray"
+                                onclick="showPage('convocatorias')">
+                            ← Volver
+                        </button>
+
+                        <br><br>
+
+                        <h2 id="detailTitle">
+                            Auxiliar de Redes
+                        </h2>
+
+                        <p>
+                            Convocatoria para estudiantes
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-grid">
+
+                        <div class="info">
+
+                            <strong>ÁREA</strong>
+
+                            <span id="detailArea">
+                                Sistemas
+                            </span>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <strong>VACANTES</strong>
+
+                            <span id="detailVacancies">
+                                2
+                            </span>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <strong>FECHA DE PUBLICACIÓN</strong>
+
+                            <span>
+                                01/10/2026
+                            </span>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <strong>FECHA LÍMITE</strong>
+
+                            <span id="detailDate">
+                                15/10/2026
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="requirements">
+
+                        <h3>
+                            Requisitos
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                Ser estudiante activo de la Universidad.
+                            </li>
+
+                            <li>
+                                Tener un promedio académico mínimo de 70 puntos.
+                            </li>
+
+                            <li>
+                                Contar con disponibilidad de horario.
+                            </li>
+
+                            <li>
+                                Presentar documentación requerida.
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <div class="apply-area">
+
+                        <h3>
+                            ¿Deseas postular a esta convocatoria?
+                        </h3>
+
+                        <p style="margin:10px 0">
+                            La postulación quedará registrada en tu cuenta.
+                        </p>
+
+                        <button class="btn btn-gold"
+                                onclick="apply()">
+                            POSTULAR AHORA
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= SEGUIMIENTO ================= -->
+
+            <section id="seguimiento" class="page hidden">
+
+                <h1 class="page-title">
+                    Seguimiento y mis postulaciones
+                </h1>
+
+                <p class="page-subtitle">
+                    Consulta el estado de tus postulaciones.
+                </p>
+
+
+                <div class="section">
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Convocatoria</th>
+                                    <th>Área</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td>
+                                        Auxiliar de Redes
+                                    </td>
+
+                                    <td>
+                                        Sistemas
+                                    </td>
+
+                                    <td>
+                                        02/10/2026
+                                    </td>
+
+                                    <td>
+                                        <span class="badge">
+                                            En revisión
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <button
+                                            class="btn btn-blue"
+                                            onclick="showTracking()">
+                                            Ver seguimiento
+                                        </button>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        Auxiliar de Programación
+                                    </td>
+
+                                    <td>
+                                        Informática
+                                    </td>
+
+                                    <td>
+                                        03/10/2026
+                                    </td>
+
+                                    <td>
+                                        <span class="badge">
+                                            Preseleccionado
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <button
+                                            class="btn btn-blue"
+                                            onclick="showTracking()">
+                                            Ver seguimiento
+                                        </button>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <div id="trackingBox"
+                     class="section hidden">
+
+                    <h2 class="section-title">
+                        Seguimiento de postulación
+                    </h2>
+
+                    <div class="timeline">
+
+                        <div class="timeline-item completed">
+
+                            <div class="circle"></div>
+
+                            <h4>
+                                Postulación registrada
+                            </h4>
+
+                            <p>
+                                Tu postulación fue registrada correctamente.
+                            </p>
+
+                        </div>
+
+
+                        <div class="timeline-item completed">
+
+                            <div class="circle"></div>
+
+                            <h4>
+                                Revisión de documentos
+                            </h4>
+
+                            <p>
+                                Los documentos fueron revisados.
+                            </p>
+
+                        </div>
+
+
+                        <div class="timeline-item current">
+
+                            <div class="circle"></div>
+
+                            <h4>
+                                Evaluación
+                            </h4>
+
+                            <p>
+                                La postulación se encuentra en proceso de evaluación.
+                            </p>
+
+                        </div>
+
+
+                        <div class="timeline-item">
+
+                            <div class="circle"></div>
+
+                            <h4>
+                                Resultado final
+                            </h4>
+
+                            <p>
+                                Pendiente.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   VARIABLES
+========================= */
+
+let selectedRole = "Estudiante";
+
+
+/* =========================
+   SELECCIONAR ROL
+========================= */
+
+function selectRole(element) {
+
+    document.querySelectorAll(".role")
+        .forEach(r => r.classList.remove("selected"));
+
+    element.classList.add("selected");
+
+    selectedRole = element.innerText.trim();
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login() {
+
+    const studentId =
+        document.getElementById("studentId").value.trim();
+
+    const password =
+        document.getElementById("password").value.trim();
+
+    if (studentId === "" || password === "") {
+
+        alert("Por favor ingresa tu usuario y contraseña.");
+
+        return;
+    }
+
+    document.getElementById("loggedUser").innerText =
+        studentId;
+
+    document.getElementById("loginScreen")
+        .classList.add("hidden");
+
+    document.getElementById("systemScreen")
+        .classList.remove("hidden");
+
+}
+
+
+/* =========================
+   CERRAR SESIÓN
+========================= */
+
+function logout() {
+
+    document.getElementById("systemScreen")
+        .classList.add("hidden");
+
+    document.getElementById("loginScreen")
+        .classList.remove("hidden");
+
+    document.getElementById("studentId").value = "";
+    document.getElementById("password").value = "";
+
+}
+
+
+/* =========================
+   CAMBIAR PÁGINA
+========================= */
+
+function showPage(pageId, menuElement) {
+
+    document.querySelectorAll(".page")
+        .forEach(page => {
+            page.classList.add("hidden");
+        });
+
+    document.getElementById(pageId)
+        .classList.remove("hidden");
+
+
+    if (menuElement) {
+
+        document.querySelectorAll(".menu-item")
+            .forEach(item => {
+                item.classList.remove("active");
+            });
+
+        menuElement.classList.add("active");
+
+    }
+
+}
+
+
+/* =========================
+   DETALLE
+========================= */
+
+const calls = {
+
+    1: {
+        title: "Auxiliar de Redes",
+        area: "Sistemas",
+        vacancies: "2",
+        date: "15/10/2026"
+    },
+
+    2: {
+        title: "Auxiliar de Programación",
+        area: "Informática",
+        vacancies: "3",
+        date: "20/10/2026"
+    },
+
+    3: {
+        title: "Auxiliar de Laboratorio",
+        area: "Ciencias",
+        vacancies: "1",
+        date: "25/10/2026"
+    }
+
+};
+
+
+function showDetail(id) {
+
+    const call = calls[id];
+
+    document.getElementById("detailTitle")
+        .innerText = call.title;
+
+    document.getElementById("detailArea")
+        .innerText = call.area;
+
+    document.getElementById("detailVacancies")
+        .innerText = call.vacancies;
+
+    document.getElementById("detailDate")
+        .innerText = call.date;
+
+    showPage("detalle");
+
+}
+
+
+/* =========================
+   POSTULAR
+========================= */
+
+function apply() {
+
+    const confirmation =
+        confirm(
+            "¿Confirmas que deseas postular a esta convocatoria?"
+        );
+
+    if (confirmation) {
+
+        alert(
+            "¡Postulación registrada correctamente!"
+        );
+
+        showPage("seguimiento");
+
+    }
+
+}
+
+
+/* =========================
+   BUSCADOR
+========================= */
+
+function filterCalls() {
+
+    const text =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const area =
+        document.getElementById("areaFilter")
+        .value;
+
+    const cards =
+        document.querySelectorAll("#callList .call-card");
+
+    cards.forEach(card => {
+
+        const name =
+            card.dataset.name.toLowerCase();
+
+        const cardArea =
+            card.dataset.area;
+
+        const matchesText =
+            name.includes(text);
+
+        const matchesArea =
+            area === "" ||
+            cardArea === area;
+
+        if (matchesText && matchesArea) {
+
+            card.style.display = "";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================
+   SEGUIMIENTO
+========================= */
+
+function showTracking() {
+
+    document.getElementById("trackingBox")
+        .classList.remove("hidden");
+
+    document.getElementById("trackingBox")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =========================
+   PERFIL
+========================= */
+
+function showProfile() {
+
+    alert(
+        "Perfil del usuario\n\n" +
+        "Usuario: " +
+        document.getElementById("loggedUser").innerText +
+        "\nRol: " +
+        selectedRole
+    );
+
+}
+
+</script>
+
+</body>
+</html>
